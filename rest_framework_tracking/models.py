@@ -15,6 +15,7 @@ class BaseAPIRequestLog(models.Model):
     path = models.CharField(max_length=200, db_index=True)
     view = models.CharField(max_length=200, db_index=True)
     view_method = models.CharField(max_length=200, db_index=True)
+    url_name = models.CharField(max_length=200, db_index=True)
     remote_addr = models.GenericIPAddressField()
     host = models.URLField()
     method = models.CharField(max_length=10)
@@ -30,7 +31,7 @@ class BaseAPIRequestLog(models.Model):
         verbose_name = 'API Request Log'
 
     def __str__(self):
-        return '{} {}'.format(self.method, self.path)
+        return '{} {}'.format(self.method, self.path, self.view_name)
 
 
 class APIRequestLog(BaseAPIRequestLog):

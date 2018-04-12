@@ -51,6 +51,7 @@ class BaseLoggingMixin(object):
                     'remote_addr': self._get_ip_address(request),
                     'view': self._get_view_name(request),
                     'view_method': self._get_view_method(request),
+                    'url_name': request.resolver_match.url_name,
                     'path': request.path,
                     'host': request.get_host(),
                     'method': request.method,
