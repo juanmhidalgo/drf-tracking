@@ -13,4 +13,7 @@ class APIRequestLogAdmin(admin.ModelAdmin):
     raw_id_fields = ('user', )
 
 
-admin.site.register(APIRequestLog, APIRequestLogAdmin)
+try:
+    admin.site.register(APIRequestLog, APIRequestLogAdmin)
+except Exception as e:
+    pass
