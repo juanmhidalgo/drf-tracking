@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             'APIRequestLog',
             'url_name',
-            models.CharField(db_index=True, max_length=200),
+            models.CharField(max_length=200, blank=True, null=True),
         ),
     ]

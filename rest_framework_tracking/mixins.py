@@ -1,5 +1,6 @@
 import ast
 from .models import APIRequestLog
+from django.urls import resolve
 from django.utils.timezone import now
 import traceback
 
@@ -51,7 +52,6 @@ class BaseLoggingMixin(object):
                     'remote_addr': self._get_ip_address(request),
                     'view': self._get_view_name(request),
                     'view_method': self._get_view_method(request),
-                    'url_name': request.resolver_match.url_name,
                     'path': request.path,
                     'host': request.get_host(),
                     'method': request.method,
@@ -63,6 +63,12 @@ class BaseLoggingMixin(object):
                     'data': self._clean_data(self.log['data'])
                 }
             )
+
+            if request.resolver_match is not None:
+                self.log.update({'url_name': request.resolver_match.url_name})
+            else:
+                self.log.update({'url_name': resolve(request.path_info).url_name})
+
             try:
                 self.handle_log()
             except Exception:
